@@ -28,8 +28,9 @@ def update(r):
     if r.method=="POST":
         form=ApplicationForm(data=r.POST,files=r.FILES)
         if form.is_valid():
-            
-            if Applications.objects.filter(aadhaar_no=r.POST['aadhaar_no'],disable="no"):
+            if not Voter.objects.filter(aadhaar_no=r.POST['aadhaar_no']):
+                return JsonResponse({'success': False, 'errors': "Already exists",'exists':True,'old':True})
+            elif Applications.objects.filter(aadhaar_no=r.POST['aadhaar_no'],disable="no"):
                 return JsonResponse({'success': False, 'errors': "Already exists",'exists':True,'old':False})
             else:
                 application_instance = form.save(commit=False)
