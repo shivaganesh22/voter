@@ -96,8 +96,8 @@ form{
             }
         }
     }
-    function showerror() {
-        $('#errormsg').html("Error")
+    function showerror(msg) {
+        $('#errormsg').html(msg)
         document.getElementById('overlayerror').style.display = 'flex';
       }
     function showupdate() {
@@ -126,7 +126,7 @@ form{
                 }
                 else{
                   displayErrors(response.errors)
-                  showerror()
+                  showerror("Errors in Form\nCheck and submit again")
                   
                 }
               }
@@ -161,7 +161,7 @@ form{
               }
               else{
                 displayErrors(response.errors)
-                showerror()
+                showerror("Errors in Form\nCheck and submit again")
                 
               }
             }
