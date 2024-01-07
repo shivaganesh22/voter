@@ -97,8 +97,8 @@ form{
             }
         }
     }
-    function showerror(msg) {
-        $('#errormsg').html(msg)
+    function showerror() {
+        $('#errormsg').html("Error")
         document.getElementById('overlayerror').style.display = 'flex';
       }
     function showupdate() {
@@ -127,7 +127,7 @@ form{
                 }
                 else{
                   displayErrors(response.errors)
-                 
+                  showerror()
                   
                 }
               }
@@ -162,7 +162,7 @@ form{
                 }
                 else{
                   displayErrors(response.errors)
-                 
+                  showerror()
                   
                 }
               }
