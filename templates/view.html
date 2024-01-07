@@ -1,0 +1,88 @@
+{% extends 'index.html' %}
+{% block main %}
+
+  <style>
+    .ps {
+      border: solid white;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .a {
+      border: 2px solid black;
+      width: 50%;
+      margin: auto;
+      margin-top: 20px;
+    }
+
+    .a th, .a td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+    }
+
+    .a tr:nth-child(even) {
+    background-color: #f1f1f1; 
+  }
+  </style>
+
+  <div class="ps">
+    <table class="a">
+      <tr>
+        <th>First Name</th>
+        <td>{{ data.first_name | title}}</td>
+      </tr>
+      <tr>
+        <th>Surname</th>
+        <td>{{ data.surname | title}}</td>
+      </tr>
+      <tr>
+        <th>Gender</th>
+        <td>{{ data.gender | title}}</td>
+      </tr>
+      <tr>
+        <th>DOB</th> 
+        <td>{{data.date_of_birth | title}}</td>
+     </tr>
+     <tr>
+        <th>Mobile Number</th> 
+        <td>{{data.mobile_no | title}}</td>
+     </tr>
+     <tr>
+        <th>Email</th> 
+        <td>{{data.email }}</td>
+     </tr>
+
+     <tr>
+        <th>State</th> 
+        <td>{{data.state | title}}</td>
+     </tr>
+
+     <tr>
+        <th>District</th> 
+        <td>{{data.district | title}}</td>
+     </tr>
+     <tr>
+        <th>Address</th>
+        <td>{{data.address | title}}</td>
+     </tr>
+     <tr>
+        <th>Constituency</th>
+        <td>{{data.constituency | title}}
+        </td>
+     </tr>
+     <tr>
+        <th>Aadhar Number</th>
+        <td>{{data.aadhaar_no | title}}</td>
+     </tr>
+     <tr>
+        <th>Status </th>
+        <td>{{data.status | title}}</td>
+     </tr>
+     <tr>
+        <th>Type </th>
+        <td>{{data.apptype | title}}</td>
+     </tr>
+    </table>
+  </div>
+{% endblock %}

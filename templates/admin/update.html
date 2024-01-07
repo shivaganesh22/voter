@@ -1,0 +1,38 @@
+{%extends './home.html'%}
+{%block main%}
+
+<div id="layoutSidenav_content">
+<center>
+
+    <main>
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Update Application Status</h1>
+            <br>
+            <form action="" method="post"  enctype="multipart/form-data" style="width: 60%;">
+            {%csrf_token%}
+            {%for field in form%}
+            <div>
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="inputGroupSelect01">{{field.label}}</label>
+                    {{field}}
+                    </div>
+            {%for error in field.errors%}
+              <font color="red">⦿{{error}}</font> <br>
+             
+               {%endfor%}
+            </div>
+            {%endfor%}
+            
+            <center><button type="submit" class="btn btn-success">Submit</button></center>
+            
+            
+            </form>
+            
+          
+    
+        </div>
+    </main>
+</center>
+</div>
+
+{%endblock%}

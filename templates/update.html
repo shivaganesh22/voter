@@ -1,0 +1,174 @@
+{%extends 'index.html'%}
+{%block main%}
+<style>
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .popup {
+      background: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+
+    .popup button {
+      padding: 10px 20px;
+      margin: 0 10px;
+      cursor: pointer;
+      border-radius: 10%;
+    }
+    #errormsg{
+        color:red;
+    }
+
+.popup button:hover {
+color: white; 
+background-color: blueviolet; 
+}
+.container{
+  border: 2px solid #f1f1f1;
+  margin-bottom: 10px;
+}
+form{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+  </style>
+<div class="container">
+    <form action="" method="post" id="contact-form" enctype="multipart/form-data">
+        <div id="error-container" style="color: red;"></div>
+        {%csrf_token%}
+        {%for field in form%}
+        <div>
+            <div class="input-group mb-3">
+                <label class="input-group-text" for="inputGroupSelect01">{{field.label}}</label>
+                {{field}}
+            </div>
+            {%for error in field.errors%}
+            <font color="red">⦿{{error}}</font> <br>
+
+            {%endfor%}
+        </div>
+        {%endfor%}
+
+        <center><button type="submit" class="btn btn-success">Submit</button></center>
+    </form>
+    <div class="overlay" id="overlayerror">
+        <div class="popup">
+          <p id="errormsg"></p>
+          <button onclick="document.getElementById('overlayerror').style.display = 'none';">Ok</button>
+        </div>
+      </div>
+    <div class="overlay" id="overlayupdate">
+        <div class="popup">
+          <p style="color:red">Voter Id already exists <br> Do want to update?</p>
+          <button onclick="answerYes()">Update</button>
+          <button onclick="document.getElementById('overlayupdate').style.display = 'none';">Cancel</button>
+        </div>
+      </div>
+</div>
+
+<script>
+    function displayErrors(errors) {
+        var errorContainer = document.getElementById('error-container');
+        errorContainer.innerHTML = '';
+
+        for (var field in errors) {
+            if (errors.hasOwnProperty(field)) {
+                var errorList = errors[field];
+                errorContainer.innerHTML += `
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:">
+                      <use xlink:href="#exclamation-triangle-fill" />
+                    </svg>${errorList}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>`
+            }
+        }
+    }
+    function showerror(msg) {
+        $('#errormsg').html(msg)
+        document.getElementById('overlayerror').style.display = 'flex';
+      }
+    function showupdate() {
+        document.getElementById('overlayupdate').style.display = 'flex';
+    }
+    
+    function answerYes() {
+        var formdata=$('#contact-form').serialize();
+        $.ajax({
+            url: '{% url "update" %}',
+            type: 'POST',
+            data: formdata,
+            dataType: 'json',
+            success: function(response) {
+              if (response.success) {
+                  window.location.href='{% url "home" %}'
+              } else {
+                if(response.exists){
+                  if(response.old){
+                      showupdate()
+                  }
+                  else{
+                      showerror("You are already submitted")
+                  }
+  
+                }
+                else{
+                  displayErrors(response.errors)
+                 
+                  
+                }
+              }
+            }
+          });
+          document.getElementById('overlayupdate').style.display = 'none';
+    }
+    
+      
+      
+    $(function() {
+      $('#contact-form').on('submit', function(event) {
+        event.preventDefault();
+        var formdata=$(this).serialize();
+        $.ajax({
+            url: '{% url "update" %}',
+            type: 'POST',
+            data: formdata,
+            dataType: 'json',
+            success: function(response) {
+              if (response.success) {
+                  window.location.href='{% url "home" %}'
+              } else {
+                if(response.exists){
+                  if(response.old){
+                      showupdate()
+                  }
+                  else{
+                      showerror("You are already submitted")
+                  }
+  
+                }
+                else{
+                  displayErrors(response.errors)
+                 
+                  
+                }
+              }
+            }
+          });
+      });
+    });
+  </script>
+{%endblock%}

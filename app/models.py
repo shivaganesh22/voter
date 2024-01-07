@@ -1,0 +1,33 @@
+from django.db import models
+
+class Applications(models.Model):
+    apptype=models.CharField(max_length=30,default="apply")
+    first_name=models.CharField(max_length=50)
+    surname=models.CharField(max_length=50)
+    gender=models.CharField(choices=(("Male","Male"),("Female","Female"),("Other","Other")),max_length=10)
+    date_of_birth=models.DateField()
+    mobile_no=models.CharField(max_length=10)
+    email=models.EmailField()
+    state=models.CharField(max_length=30)
+    district=models.CharField(max_length=30)
+    address=models.TextField()
+    constituency=models.CharField(max_length=30)
+    aadhaar_no=models.CharField(max_length=12)
+    status=models.CharField(default="Pending",choices=(("Under Verification","Under Verification"),("Approved","Approved"),("Rejected","Rejected")),max_length=30)
+    submitted=models.DateField(auto_now_add=True)
+    document_proof=models.ImageField(blank=True,null=True)
+    disable=models.CharField(max_length=10,default="no")
+class Voter(models.Model):
+    voterid=models.CharField(max_length=10)
+    first_name=models.CharField(max_length=50)
+    surname=models.CharField(max_length=50)
+    gender=models.CharField(choices=(("Male","Male"),("Female","Female"),("Other","Other")),max_length=10)
+    date_of_birth=models.DateField()
+    mobile_no=models.CharField(max_length=10)
+    email=models.EmailField()
+    state=models.CharField(max_length=30)
+    district=models.CharField(max_length=30)
+    address=models.TextField()
+    constituency=models.CharField(max_length=30)
+    aadhaar_no=models.CharField(max_length=12)
+    
