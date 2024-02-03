@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-nd@hj5se@-5b(d6_6_^23(yi^21zgn6hexwmvq4f(r+)+f50#p'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -77,12 +77,8 @@ WSGI_APPLICATION = 'voter.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'eE6bGFAgfbAg*3DAbg5d-3D54G*b2cgA',
-        'HOST': 'monorail.proxy.rlwy.net',  # Set to your PostgreSQL host
-        'PORT': '55316',       # Set to your PostgreSQL port
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
