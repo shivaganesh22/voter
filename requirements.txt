@@ -1,3 +1,11 @@
 django
 djangorestframework
 pillow
+pandas
+scikit-learn  
+matplotlib
+seaborn
+imblearn
+statsmodels
+keras
+tensorflow
